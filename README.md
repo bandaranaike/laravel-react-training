@@ -51,12 +51,63 @@ laravel new payroll-service
 
 mkdir docker
 mkdir oracle
+```
+* Build Docker
+```
+docker compose build
+```
+* Run docker 
+```
+docker compose up -d
+```
+#### Employee Service App
+
+* Start Tinker in employee app 
  ```
- * Build Docker
+ docker compose exec employee-service php artisan tinker
  ```
- docker compose build
- ```
- * Run docker 
- ```
- docker compose up -d
- ```
+* Test database connection
+```
+DB::connection()->getPdo();
+```
+* Run sample query
+```
+DB::select('SELECT 1 FROM DUAL');
+```
+* Exit from the Tinker
+```
+exit
+```
+* Create Employee Model and Migration in Employee Service App
+```
+docker compose exec employee-service php artisan make:model Employee -m
+```
+* Run the migration
+```
+docker compose exec employee-service php artisan migrate
+```
+* Adding a simple API
+```
+docker compose exec employee-service php artisan make:controller EmployeeController
+```
+* Installing the API plugin
+```
+docker compose exec employee-service php artisan install:api
+```
+#### Payroll Service App
+
+Do the same db connection test as the above
+
+* Create Salary Model and Migration
+
+```
+docker compose exec payroll-service php artisan make:model Salary -m
+```
+```
+docker compose exec payroll-service php artisan migrate
+```
+* Create SalaryController
+```
+docker compose exec payroll-service php artisan make:controller SalaryController
+```
+

@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'employee_service' => [
+        'url' => env('EMPLOYEE_SERVICE_URL'),
+    ],
+
 ];
