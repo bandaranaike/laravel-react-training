@@ -1,0 +1,72 @@
+services:
+
+  employee-service:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: employee-service
+    working_dir: /var/www
+    volumes:
+      - ./employee-service:/var/www
+    ports:
+      - "8001:8000"
+    environment:
+      DB_CONNECTION: oracle
+      DB_HOST: oracle
+      DB_PORT: 1521
+      DB_SERVICE_NAME: FREEPDB1
+      DB_USERNAME: EMPLOYEE_SERVICE
+      DB_PASSWORD: employee_password
+    depends_on:
+      oracle:
+        condition: service_healthy
+    networks:
+      - microservices-network
+
+  payroll-service:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: payroll-service
+    working_dir: /var/www
+    volumes:
+      - ./payroll-service:/var/www
+    ports:
+      - "8002:8000"
+    environment:
+      DB_CONNECTION: oracle
+      DB_HOST: oracle
+      DB_PORT: 1521
+      DB_SERVICE_NAME: FREEPDB1
+      DB_USERNAME: PAYROLL_SERVICE
+      DB_PASSWORD: payroll_password
+    depends_on:
+      oracle:
+        condition: service_healthy
+    networks:
+      - microservices-network
+
+  oracle:
+    image: gvenzl/oracle-free:latest
+    container_name: oracle
+    environment:
+      ORACLE_PASSWORD: Oracle123
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./oracle/init:/container-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "healthcheck.sh"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+    networks:
+      - microservices-network
+
+volumes:
+  oracle-data:
+
+networks:
+  microservices-network:
+    driver: bridge
