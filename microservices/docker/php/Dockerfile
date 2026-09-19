@@ -1,15 +1,17 @@
-FROM php:8.3-cli
+FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     git \
     curl \
     unzip \
     zip \
-    libaio1 \
+    libaio1t64 \
     libzip-dev \
+    && ln -s libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1 \
     && docker-php-ext-install \
        pdo \
-       zip
+       zip \
+    && rm -rf /var/lib/apt/lists/*
 
 # -------------------------------------------------
 # Oracle Instant Client
@@ -22,7 +24,7 @@ RUN curl -o instantclient-basic.zip \
     && curl -o instantclient-sdk.zip \
     https://download.oracle.com/otn_software/linux/instantclient/2380000/instantclient-sdk-linux.x64-23.8.0.25.04.zip \
     && unzip instantclient-basic.zip \
-    && unzip instantclient-sdk.zip \
+    && unzip -o instantclient-sdk.zip \
     && rm instantclient-basic.zip instantclient-sdk.zip \
     && ln -s /opt/oracle/instantclient_23_8 /opt/oracle/instantclient
 

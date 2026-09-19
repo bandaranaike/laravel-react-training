@@ -114,6 +114,19 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
+        'oracle' => [
+            'driver' => 'oracle',
+            'host' => env('DB_HOST', 'oracle'),
+            'port' => env('DB_PORT', '1521'),
+            'database' => env('DB_DATABASE', env('DB_SERVICE_NAME', 'FREEPDB1')),
+            'service_name' => env('DB_SERVICE_NAME', 'FREEPDB1'),
+            'username' => env('DB_USERNAME', ''),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => env('DB_CHARSET', 'AL32UTF8'),
+            'prefix' => env('DB_PREFIX', ''),
+            'prefix_schema' => env('DB_SCHEMA_PREFIX', ''),
+        ],
+
     ],
 
     /*
