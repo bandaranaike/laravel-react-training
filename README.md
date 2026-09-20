@@ -19,8 +19,32 @@ composer global require laravel/installer
 
 * Create a new Laravel application
 ```
-laravel new erp-laravel
+laravel new erp-laravel-api
 ```
+* Check PHP and Composer version
+```
+php -v
+composer -v
+```
+* Create workspace directory
+```
+mkdir training-workspace
+cd training-workspace
+```
+* Create a Laravel application
+```
+composer create-project laravel/laravel erp-laravel-api "^13.0"
+cd erp-laravel-api
+```
+* Install API
+```
+php artisan install:api
+php artisan migrate
+php artisan serve
+php artisan --version
+php artisan route:list --path=api
+```
+
 
 ## React
 

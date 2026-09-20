@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-
-Route::inertia('/', 'welcome')->name('home');
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:login');
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
