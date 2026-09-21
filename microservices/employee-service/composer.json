@@ -47,6 +47,7 @@
     "scripts": {
         "docker-start": [
             "composer install --no-interaction --prefer-dist",
+            "Composer\\Config::disableProcessTimeout",
             "@php artisan serve --host=0.0.0.0 --port=8000"
         ],
         "setup": [

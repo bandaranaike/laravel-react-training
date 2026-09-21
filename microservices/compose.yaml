@@ -6,7 +6,7 @@ services:
       dockerfile: docker/php/Dockerfile
     container_name: employee-service
     working_dir: /var/www
-    command: ["composer", "run", "docker-start"]
+    command: ["sh", "-c", "composer install --no-interaction --prefer-dist && exec php artisan serve --host=0.0.0.0 --port=8000"]
     volumes:
       - ./employee-service:/var/www
     ports:
@@ -30,7 +30,7 @@ services:
       dockerfile: docker/php/Dockerfile
     container_name: payroll-service
     working_dir: /var/www
-    command: ["composer", "run", "docker-start"]
+    command: ["sh", "-c", "composer install --no-interaction --prefer-dist && exec php artisan serve --host=0.0.0.0 --port=8000"]
     volumes:
       - ./payroll-service:/var/www
     ports:
