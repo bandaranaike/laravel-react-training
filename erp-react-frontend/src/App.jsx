@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import EmployeeTable from "./components/EmployeeTable";
-import EmployeeModal from "./components/EmployeeModal";
-import DeleteConfirmModal from "./components/DeleteConfirmModal";
+import EmployeeTable from "./src/components/EmployeeTable";
+import EmployeeModal from "./src/components/EmployeeModal";
+import DeleteConfirmModal from "./src/components/DeleteConfirmModal";
 
 const API_URL =
     "http://localhost:8000/api/employees";
