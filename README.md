@@ -44,7 +44,20 @@ php artisan serve
 php artisan --version
 php artisan route:list --path=api
 ```
+* Authentication
+```
+  $user = App\Models\User::factory()->create([
+      'name' => 'HR Manager',
+      'email' => 'manager@company.test',
+      'password' => 'password',
+  ]);
+  
+  $user->createToken(
+      'postman',
+      ['employees:read', 'employees:write', 'employees:export']
+  )->plainTextToken;
 
+```
 
 ## React
 

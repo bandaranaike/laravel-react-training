@@ -10,7 +10,7 @@ class IndexEmployeeRequest extends FormRequest
     {
         return [
             'search' => ['nullable', 'string', 'max:100'],
-            'department_id' => ['nullable', 'integer', 'exists:departments,id'],
+            'department_id' => ['nullable', 'integer', Rule::exists('departments', 'id')->where('active', true)],
             'status' => ['nullable', Rule::in(['active', 'inactive'])],
             'sort' => ['sometimes', Rule::in(['id', 'name', 'email'])],
             'direction' => ['sometimes', Rule::in(['asc', 'desc'])],
@@ -19,4 +19,3 @@ class IndexEmployeeRequest extends FormRequest
         ];
     }
 }
-
