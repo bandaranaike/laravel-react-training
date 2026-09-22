@@ -4,7 +4,7 @@ import EmployeeModal from "./src/components/EmployeeModal";
 import DeleteConfirmModal from "./src/components/DeleteConfirmModal";
 
 const API_URL =
-    "http://localhost:8000/api/employees";
+    "http://localhost:8001/api/employees";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -30,8 +30,7 @@ function App() {
       }
 
       const data = await response.json();
-
-      setEmployees(data);
+      setEmployees(data.data);
     } catch (error) {
       setError(error.message);
     } finally {
